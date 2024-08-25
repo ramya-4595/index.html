@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Number Generator</title>
+    <style>
+        /* Styling the body with a gradient background and centering the content */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #f06, #f9d423);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+        }
+
+        /* Styling the main container */
+        .random-number-generator {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        /* Styling for the button */
+        .next-button {
+            padding: 12px 25px;
+            background-color: #03a9f4;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+
+        /* Button hover effect */
+        .next-button:hover {
+            background-color: #0288d1;
+        }
+
+        /* Styling for the result display */
+        .result-display {
+            margin-top: 30px;
+            font-size: 30px;
+            font-weight: bold;
+            color: #424242;
+        }
+    </style>
+</head>
+<body>
+
+<div class="random-number-generator">
+    <h2>Random Number Generator</h2>
+    <div id="input-stage">
+        <!-- Min value input prompt -->
+        <label for="min">Enter Min Value:</label>
+        <input type="number" id="min" class="input-field" placeholder="Min">
+        <button class="next-button" onclick="proceedToMax()">Next</button>
+    </div>
+    <div id="result" class="result-display"></div>
+</div>
+
+<script>
+    let minValue;
+
+    function proceedToMax() {
+        // Get the min value and store it
+        minValue = parseInt(document.getElementById('min').value);
+        
+        if (!isNaN(minValue)) {
+            // Switch to Max value input prompt
+            document.getElementById('input-stage').innerHTML = `
+                <label for="max">Enter Max Value:</label>
+                <input type="number" id="max" class="input-field" placeholder="Max">
+                <button class="next-button" onclick="generateRandomNumber()">Generate</button>
+            `;
+        } else {
+            document.getElementById('result').innerText = "Please enter a valid number for Min.";
+        }
+    }
+
+    function generateRandomNumber() {
+        // Get the max value
+        const maxValue = parseInt(document.getElementById('max').value);
+
+        if (!isNaN(maxValue) && minValue <= maxValue) {
+            // Generate a random number between the min and max values
+            const randomNumber = Math.floor(Math.random() * (maxValue - minValue + 1)) + minValue;
+            document.getElementById('result').innerText = `Random Number: ${randomNumber}`;
+        } else {
+            document.getElementById('result').innerText = "Please enter a valid number for Max.";
+        }
+    }
+</script>
+
+</body>
+</html>
